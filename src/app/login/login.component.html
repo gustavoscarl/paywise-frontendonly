@@ -1,0 +1,34 @@
+
+
+  
+<div class="background">
+  <div class="container">
+    <img src="../../assets/logotypes-login-cadastro/logopronta.svg" alt="Logo do Banco" class="logo">
+    <form>
+      <div class="form-group">
+        <label for="conta">Conta:</label>
+        <input type="text" id="conta" name="conta" placeholder="Digite sua conta">
+      </div>
+      <div class="form-group">
+        <label for="senha">Senha:</label>
+        <input type="password" id="senha" name="senha" placeholder="Digite sua senha">
+      </div>
+      <div class="form-group links-container link-estilo">
+        <a class="link-estilo" href="">Esqueci minha senha</a>
+
+      </div>
+      
+      <div class="form-group">
+        <a class="login-link" [routerLink]="['/home']"><div class="btn-reset login-button">Login</div></a>
+        <div class="icon-container">
+          <a id="support-icon">
+            <i class="fa fa-comments" aria-hidden="true"></i>
+          </a>
+          <div id="support-menu" class="support-menu">
+          </div>
+        </div>
+      </div>
+    </form>
+    <div><a class="link-registro" a href="">Ainda não tem uma conta? <span class="link-estilo">Registre-se</span></a></div>
+  </div>
+</div>
