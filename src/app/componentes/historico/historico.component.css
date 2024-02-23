@@ -1,3 +1,22 @@
+.icone {
+  background-color: var(--purple500);
+}
+
+#seta-light {
+  display: block;
+}
+#seta-dark {
+  display: none;
+}
+
+#lupa-light {
+  display: block;
+}
+
+#lupa-dark {
+  display: none;
+}
+
 :root {
   --white: #ffffff;
   --gray200: #e5e5e5;
@@ -17,78 +36,115 @@
   --green300: #84e8cb;
 }
 
-#seta-light:hover,
-#seta-dark:hover {
-  transform: scale(1.1);
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: border-box;
 }
 
-#seta-light {
-  display: block;
-}
-#seta-dark {
-  display: none;
-}
-
-#lupa-light {
-  display: block;
-}
-#lupa-dark {
-  display: none;
+.container {
+  display: flex;
+  justify-content: center;
+  background-color: var(--backgroudcolor);
+  margin: 0;
+  padding-top: 15px;
+  /* min-width: 100%;
+    min-height: 100%; */
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --backgroundcolor: red;
-    --white: red !important;
-  }
+.icone > object {
+  width: 500px;
+}
+
+.background {
+  display: flex;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position-y: -100px;
 }
 
 /* LADO ESQUERDO A TELA - RESUMOS E INFORMAÇÕES */
-.container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  background-color: var(--backgroudcolor);
-  margin-top: 35px;
-}
 
 .info {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 2fr 1fr 2fr;
-  margin-inline: auto;
-  align-content: center;
-  grid-template-areas:
-    "gastos gastos gastos"
-    "filtro filtro filtro";
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+/*  TEMA DARK */
+
+@media (prefers-color-scheme: dark) {
+  .container {
+    background-color: #000;
+  }
+
+  #seta-light {
+    display: none;
+  }
+  #seta-dark {
+    display: block;
+  }
+
+  #lupa-light {
+    display: none;
+  }
+
+  #lupa-dark {
+    display: block;
+  }
+
+  .gastosResumo,
+  .ganhosResumo {
+    color: #000;
+  }
+  .filtro {
+    --white: var(--gray600);
+  }
+}
+
+@media screen and (max-width: 780px) {
+  .background {
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position-y: -600px;
+    background-position-x: 10px;
+  }
 }
 
 @media screen and (max-width: 981px), (max-height: 710px) {
   .info {
     display: flex;
+    flex-direction: row;
     flex-wrap: wrap;
+    justify-content: center;
   }
 }
 
 .gastosEganhos {
-  grid-area: gastos;
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: space-between;
   font-family: "Montserrat", sans-serif;
+  max-width: 500px;
 }
 
-.gastos {
+.gastos,
+.ganhos {
   display: flex;
   margin: 15px;
   justify-content: space-between;
 }
 
-.gastosResumo > span {
+.gastosResumo > span,
+.ganhosResumo > span {
   font-weight: 500;
 }
 
-.gastosResumo > p {
+.gastosResumo > p,
+.ganhosResumo > p {
   font-weight: 700;
   margin: 3px;
 }
@@ -101,7 +157,6 @@
   background-color: rgba(167, 76, 76, 1);
   margin: 5px;
 }
-
 .detalhe1 {
   content: "";
   margin: 5px;
@@ -147,14 +202,14 @@
   align-items: center;
   justify-content: space-evenly;
   width: 213px;
-  height: 88px;
+  max-height: 88px;
   border-radius: 8px;
   background-color: var(--red300);
 }
 
 @media (max-width: 375px) {
   .gastosEganhos {
-    width: 95%;
+    width: 80%;
   }
 }
 
@@ -163,15 +218,15 @@
   align-items: center;
   justify-content: space-evenly;
   width: 213px;
-  height: 88px;
+  max-height: 88px;
   border-radius: 8px;
   background-color: var(--green300);
 }
 
 .gastos-dir > img,
 .ganhos-dir > img {
-  width: 17.5px;
-  height: 20px;
+  max-width: 17.5px;
+  max-height: 20px;
 }
 
 /* PARTE DE BAIXO LADO ESQUERDO */
@@ -179,8 +234,22 @@
 .pesquisa {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-area: filtro;
+  grid-template-rows: 1fr 1fr 1fr;
   gap: 15px;
+  margin: auto;
+  grid-template-areas:
+    "filtro filtro filtro"
+    "search search search"
+    "icone icone icone";
+}
+
+.search-bar {
+  display: flex;
+  flex-direction: column;
+  grid-area: search;
+  width: auto;
+  height: auto;
+  justify-content: center;
 }
 
 .filtro {
@@ -194,10 +263,8 @@
   border-radius: 8px;
 }
 
-@media (prefers-color-scheme: dark) {
-  .filtro {
-    --white: #262626;
-  }
+.filtro:hover {
+  box-shadow: 2px 1.3px 5px 1px var(--gray600);
 }
 
 .filtro > p {
@@ -207,50 +274,88 @@
 }
 
 .icone {
+  grid-area: icone;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 15px;
+  width: 85%;
+  margin: auto;
+}
+
+.vazia {
   width: 100%;
 }
 
-@media (prefers-color-scheme: dark) {
+@media screen and (max-width: 768px), (max-height: 830px) {
+  .pesquisa {
+    display: flex;
+  }
   .icone {
-    background-color: var(--purple500);
-    border-radius: 10px;
+    margin: 15px auto;
+    width: 60%;
   }
-
-  #seta-light {
-    display: none;
-  }
-  #seta-dark {
-    display: block;
-  }
-
-  #lupa-light {
-    display: none;
-  }
-  #lupa-dark {
-    display: block;
+  .info {
+    justify-content: center;
+    align-items: center;
   }
 }
 
-@media screen and (max-width: 520px), (max-height: 710px) {
-  .icone {
+@media screen and (max-width: 700px) {
+  .background {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 435px), (max-height: 710px) {
+  .ganhos-esq,
+  .gastos-esq {
     display: none;
+  }
+  .vazia {
+    display: flex;
+  }
+  .pesquisa {
+    display: flex;
+    margin-bottom: 10px;
+  }
+  .background {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position-y: -333px;
+  }
+}
+
+@media screen and (max-width: 430px) {
+  .filtro {
+    display: flex;
+    justify-content: center;
+    max-width: 98px;
+    max-height: 43px;
+    margin: 5px auto;
+  }
+}
+
+@media screen and (max-width: 300px) {
+  .pesquisa {
+    max-width: 250px;
   }
 
   .filtro {
-    display: flex;
-    width: 98px;
-    height: 43px;
-    margin: 2px auto;
+    max-width: 88px;
+    max-height: 30px;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .icone {
+    display: none;
   }
 }
 
 .button {
-  width: 200px;
-  height: 35px;
+  max-width: 200px;
+  max-height: 35px;
   border-radius: 5px;
   border: none;
   background: var(--purple400);
@@ -269,7 +374,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 10px;
+  padding-left: 10px;
 }
 
 .resumo {
@@ -301,7 +406,7 @@
   border-radius: 8px;
   background-color: var(--white);
   color: var(--gray700);
-  transition: 0.5s;
+  transition: 0.3s;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -313,10 +418,13 @@
   .iconeDir {
     color: var(--gray200);
   }
+  .data > p {
+    color: var(--white);
+  }
 }
 
 .transationcard:hover {
-  box-shadow: 5px 2px 8px 1px var(--purple700);
+  box-shadow: 2px 1px 4px 1px var(--gray700);
 }
 
 .resumoDir {
@@ -325,26 +433,30 @@
   gap: 15px;
 }
 .cardItens {
-  display: flex;
+  display: grid;
+  grid-template-columns: 99% 1fr;
   justify-content: space-between;
   width: 366px;
   height: 82px;
 }
 
-@media screen and (max-width: 520px) {
-  .card {
-    max-width: 250px;
+@media screen and (max-width: 375px) {
+  .cardItens {
+    max-width: 300px;
     max-height: 70px;
   }
 }
 
 .data {
-  color: var(--gray700);
+  color: var(--gray600);
+  align-self: flex-start;
+  padding-left: 10px;
+  font-weight: 600;
+  font-size: clamp(0.9rem, 2vh, 1.5rem);
 }
 
 .textoCard {
   font-size: clamp(0.75rem, 2vw, 1rem);
-  margin-top: 15px;
 }
 
 .infoCardDir {
